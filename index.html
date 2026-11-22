@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quang Minh AI Data Analyst — Nền Tảng Phân Tích Dữ Liệu Doanh Nghiệp Đa Hình</title>
+  
+  <!-- Google Fonts: Playfair Display, Cormorant Garamond, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- SheetJS (XLSX) CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <!-- Ambient Botanical Animated Canvas (Bóng Lá & Đốm Sáng Gió Nhẹ) -->
+  <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-arch-badge" title="Quang Minh AI Data Analyst">
+        <svg class="arch-leaf-svg" viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 52V24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24V52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <!-- Delicate leaf branch motif -->
+          <path d="M24 44V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M24 36C28 34 32 35 33 30C29 30 25 33 24 36Z" fill="currentColor"/>
+          <path d="M24 30C20 28 16 29 15 24C19 24 23 27 24 30Z" fill="currentColor"/>
+          <path d="M24 24C28 22 31 23 32 18C28 18 25 21 24 24Z" fill="currentColor"/>
+          <path d="M24 18C20 16 17 17 16 12C20 12 23 15 24 18Z" fill="currentColor"/>
+          <path d="M24 16C25.5 13 25.5 9 24 8C22.5 9 22.5 13 24 16Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">
+          <span class="brand-primary">QUANG MINH</span>
+          <span class="brand-subtitle-tag">AI DATA ANALYST</span>
+        </div>
+        <div class="brand-tagline">NỀN TẢNG PHÂN TÍCH DỮ LIỆU ĐA HÌNH THÍCH ỨNG & ĐIỀU HÀNH DOANH NGHIỆP</div>
+      </div>
+    </div>
+
+    <!-- Stepper Navigation (6 Bước Giữ Nguyên Trọn Vẹn) -->
+    <nav class="stepper-nav">
+      <div class="step-pill active" data-step="1">
+        <span class="step-num">1</span>
+        <span class="step-label">Tiếp Nhận Dữ Liệu</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-pill" data-step="2">
+        <span class="step-num">2</span>
+        <span class="step-label">Làm Sạch & Duyệt</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-pill" data-step="3">
+        <span class="step-num">3</span>
+        <span class="step-label">Bài Toán Doanh Nghiệp</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-pill" data-step="4">
+        <span class="step-num">4</span>
+        <span class="step-label">Yêu Cầu & Gợi Ý AI</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-pill" data-step="5">
+        <span class="step-num">5</span>
+        <span class="step-label">Dashboard & Xác Nhận</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-pill" data-step="6">
+        <span class="step-num">6</span>
+        <span class="step-label">Xuất Bộ Báo Cáo</span>
+      </div>
+    </nav>
+
+    <div class="header-right">
+      <button class="btn btn-sm btn-guide-header" id="btnHeaderGuide" title="Xem hướng dẫn sử dụng hệ thống">
+        <img src="mu_logo.jpg" alt="MU" class="mu-logo-icon-sm"> Hướng Dẫn
+      </button>
+      <button class="btn btn-sm btn-ghost" id="btnThemeToggle" title="Đổi giao diện Sáng / Tối">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button class="btn btn-sm btn-outline" id="btnOpenApiModal" title="Cấu hình Google Gemini API (Tùy chọn)">
+        <i class="fa-solid fa-brain"></i> Dual-Brain
+      </button>
+      <button class="btn btn-sm btn-primary" id="btnTopExport" title="Xuất trọn bộ báo cáo 1-Click">
+        <i class="fa-solid fa-file-export"></i> Xuất Báo Cáo
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="app-container">
+    
+    <!-- ================= BƯỚC 1: TIẾP NHẬN ĐA NGUỒN ================= -->
+    <section class="workflow-section active" id="step1-section">
+      <div class="section-hero">
+        <div class="hero-badge"><i class="fa-solid fa-cloud-arrow-up"></i> Bước 1 / 6: Tiếp nhận Đa nguồn Dữ liệu</div>
+        <h2>Nạp dữ liệu kinh doanh đa định dạng</h2>
+        <p>Hỗ trợ tệp bảng tính (Sheet Excel/CSV), văn bản thô (Text/TSV), hoặc dán liên kết Google Sheets / Google Docs công khai.</p>
+      </div>
+
+      <!-- Ingestion Tabs -->
+      <div class="ingest-tabs-bar">
+        <button class="tab-btn active" data-tab="tab-sheet"><i class="fa-solid fa-file-excel"></i> Tệp Bảng Tính (Excel / CSV)</button>
+        <button class="tab-btn" data-tab="tab-text"><i class="fa-solid fa-font"></i> Nhập Dạng Text / Dán Bảng</button>
+        <button class="tab-btn" data-tab="tab-link"><i class="fa-solid fa-link"></i> Link Google Docs / Google Sheets</button>
+      </div>
+
+      <!-- Tab Content: Sheet File Upload -->
+      <div class="tab-pane active" id="tab-sheet">
+        <div class="upload-grid">
+          <div class="upload-card dropzone" id="fileDropZone">
+            <input type="file" id="fileInput" accept=".csv, .xlsx, .xls" hidden>
+            <div class="dropzone-icon">
+              <i class="fa-solid fa-file-csv"></i>
+              <i class="fa-solid fa-file-excel text-emerald"></i>
+            </div>
+            <h3>Kéo thả tệp CSV hoặc Excel vào đây</h3>
+            <p class="text-muted">Hỗ trợ .csv (chuẩn tiếng Việt UTF-8/Windows-1258), .xlsx, .xls</p>
+            <div class="dropzone-specs">
+              <span><i class="fa-solid fa-check"></i> Đa bảng tính</span>
+              <span><i class="fa-solid fa-check"></i> Tự sửa dấu phân cách</span>
+              <span><i class="fa-solid fa-check"></i> Không giới hạn cột</span>
+            </div>
+            <button class="btn btn-secondary mt-3" onclick="document.getElementById('fileInput').click()">
+              <i class="fa-solid fa-folder-open"></i> Chọn tệp từ máy tính
+            </button>
+          </div>
+
+          <!-- Download Sample File or Upload Your Business File -->
+          <div class="quick-sources-card">
+            <div class="hero-badge" style="margin-bottom: 0.5rem;">
+              <i class="fa-solid fa-file-circle-check text-primary"></i> Chế độ bắt buộc nạp tệp
+            </div>
+            <h4>Tải tệp Excel mẫu để nạp thử:</h4>
+            <p class="text-muted text-sm">Hệ thống yêu cầu bạn phải nạp tệp dữ liệu thì mới bắt đầu tính toán và hiển thị thông số:</p>
+            
+            <div class="sample-download-list mt-3">
+              <div class="sample-download-item">
+                <div class="sample-item-info">
+                  <strong><i class="fa-solid fa-file-excel text-emerald"></i> Tệp Mẫu Bán Lẻ & Đa Kênh</strong>
+                  <small>Chuẩn hóa các cột Doanh thu, Chi phí, Đơn hàng (.xlsx)</small>
+                </div>
+                <button class="btn btn-sm btn-outline btn-download-sample" data-sample="retail" title="Tải tệp Excel về máy tính">
+                  <i class="fa-solid fa-download"></i> Tải .xlsx
+                </button>
+              </div>
+
+              <div class="sample-download-item">
+                <div class="sample-item-info">
+                  <strong><i class="fa-solid fa-file-excel text-emerald"></i> Tệp Mẫu Marketing Ads</strong>
+                  <small>Chuẩn hóa Ngân sách, Clicks, Chuyển đổi (.xlsx)</small>
+                </div>
+                <button class="btn btn-sm btn-outline btn-download-sample" data-sample="marketing" title="Tải tệp Excel về máy tính">
+                  <i class="fa-solid fa-download"></i> Tải .xlsx
+                </button>
+              </div>
+
+              <div class="sample-download-item">
+                <div class="sample-item-info">
+                  <strong><i class="fa-solid fa-file-excel text-emerald"></i> Tệp Mẫu Hợp Đồng SaaS</strong>
+                  <small>Chuẩn hóa Giá trị HĐ, Doanh thu ARR, Khách hàng (.xlsx)</small>
+                </div>
+                <button class="btn btn-sm btn-outline btn-download-sample" data-sample="saas" title="Tải tệp Excel về máy tính">
+                  <i class="fa-solid fa-download"></i> Tải .xlsx
+                </button>
+              </div>
+            </div>
+
+            <div class="data-gate-notice mt-3">
+              <i class="fa-solid fa-shield-halved text-primary"></i>
+              <span>Sau khi tải tệp mẫu về máy hoặc chuẩn bị file của bạn, hãy kéo thả tệp vào ô bên trái để hệ thống đọc dữ liệu và mở khóa các thông số.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Raw Text -->
+      <div class="tab-pane" id="tab-text">
+        <div class="card p-4">
+          <h4><i class="fa-solid fa-clipboard text-primary"></i> Dán dữ liệu dạng Text / Bảng sao chép từ Excel hoặc Web</h4>
+          <p class="text-muted text-sm mb-3">Hỗ trợ các dòng phân cách bằng dấu Tab, dấu phẩy (,), hoặc dấu chấm phẩy (;):</p>
+          <textarea id="rawTextDataInput" class="form-input form-textarea" rows="8" placeholder="Thang&#9;Chi_Nhanh&#9;Doanh_Thu&#9;Chi_Phi&#10;2026-01&#9;Hà Nội&#9;500000000&#9;300000000&#10;2026-01&#9;TP.HCM&#9;700000000&#9;420000000"></textarea>
+          <div class="mt-3 text-right">
+            <button class="btn btn-primary" id="btnParseTextData">
+              <i class="fa-solid fa-arrow-right-to-bracket"></i> Phân tích cấu trúc bảng từ Text
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Link Google Sheets / Docs -->
+      <div class="tab-pane" id="tab-link">
+        <div class="card p-4">
+          <h4><i class="fa-brands fa-google-drive text-emerald"></i> Nhập đường link Google Sheets hoặc Google Docs</h4>
+          <p class="text-muted text-sm mb-3">Hỗ trợ liên kết Google Sheets (bảng tính) hoặc Google Docs công khai:</p>
+          <div class="input-with-button">
+            <input type="url" id="cloudDocUrl" class="form-input" placeholder="https://docs.google.com/spreadsheets/d/.../edit">
+            <button class="btn btn-primary" id="btnLoadCloudDoc">
+              <i class="fa-solid fa-cloud-arrow-down"></i> Tải & Nạp dữ liệu
+            </button>
+          </div>
+          <small class="text-muted mt-2 block"><i class="fa-solid fa-info-circle"></i> Bảng tính cần được bật chia sẻ: <strong>"Bất kỳ ai có đường liên kết đều có thể xem"</strong>.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BƯỚC 2: LÀM SẠCH & DUYỆT BỘ DỮ LIỆU MẪU ================= -->
+    <section class="workflow-section" id="step2-section">
+      <div class="section-hero">
+        <div class="hero-badge badge-warning"><i class="fa-solid fa-broom"></i> Bước 2 / 6: Kiểm Định, Làm Sạch & Duyệt Dữ Liệu</div>
+        <h2>Rà soát chất lượng & Duyệt bộ dữ liệu làm sạch mẫu</h2>
+        <p>Hệ thống tự động quét lỗi, sửa trực tiếp trên bảng tương tác, hoặc chọn nạp Bộ dữ liệu làm sạch mẫu chuẩn trước khi duyệt tiếp tục.</p>
+      </div>
+
+      <!-- Health Summary Bar -->
+      <div class="health-summary-banner" id="healthSummaryBanner">
+        <div class="health-score-dial">
+          <div class="score-circle" id="healthScoreCircle">
+            <span class="score-number" id="healthScoreValue">--</span>
+            <span class="score-label">Sức khỏe tệp</span>
+          </div>
+        </div>
+        <div class="health-stats-grid">
+          <div class="health-stat-item">
+            <span class="stat-name">Tổng dòng ghi nhận</span>
+            <span class="stat-val" id="statTotalRows">0</span>
+          </div>
+          <div class="health-stat-item">
+            <span class="stat-name">Số cột phát hiện</span>
+            <span class="stat-val" id="statTotalCols">0</span>
+          </div>
+          <div class="health-stat-item">
+            <span class="stat-name">Ô trống / Lỗi dữ liệu</span>
+            <span class="stat-val text-danger" id="statTotalErrors">0</span>
+          </div>
+          <div class="health-stat-item">
+            <span class="stat-name">Trạng thái phê duyệt</span>
+            <span class="stat-badge badge-warning" id="statGateApprovalStatus">Chưa Có Dữ Liệu</span>
+          </div>
+        </div>
+        <div class="health-actions">
+          <button class="btn btn-secondary btn-sm" id="btnAutoCleanData">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Tự động làm sạch & điền ô trống
+          </button>
+          <button class="btn btn-outline btn-sm" id="btnLoadCleanTemplate">
+            <i class="fa-solid fa-file-circle-check text-emerald"></i> Nạp mẫu chuẩn đã làm sạch
+          </button>
+          <button class="btn btn-success btn-sm" id="btnApproveCleanData">
+            <i class="fa-solid fa-circle-check"></i> Duyệt Bước Này & Tiếp Tục <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Issue notification -->
+      <div class="issue-chips-wrapper" id="issueChipsWrapper" style="display: none;">
+        <span class="chips-title"><i class="fa-solid fa-triangle-exclamation"></i> Vấn đề phát hiện:</span>
+        <div class="chips-container" id="issueChipsList"></div>
+      </div>
+
+      <!-- Interactive Data Table (Inline Editor) -->
+      <div class="table-container-card">
+        <div class="table-header-toolbar">
+          <div class="toolbar-left">
+            <span class="table-title"><i class="fa-solid fa-table"></i> Bảng Dữ Liệu Tương Tác (Nhấp đúp vào ô để sửa giá trị trực tiếp)</span>
+          </div>
+          <div class="toolbar-right">
+            <input type="text" id="tableSearchInput" class="form-input form-input-sm" placeholder="Tìm kiếm nhanh dòng...">
+            <button class="btn btn-outline btn-sm" id="btnAskAiFromTable" title="Hỏi AI bất kỳ điều gì về bảng số liệu này">
+              <i class="fa-solid fa-brain text-accent"></i> Hỏi AI Về Bảng Này
+            </button>
+            <button class="btn btn-ghost btn-sm" id="btnResetTableData" title="Khôi phục lại dữ liệu gốc">
+              <i class="fa-solid fa-rotate-left"></i> Khôi phục gốc
+            </button>
+          </div>
+        </div>
+        <div class="table-scroll-wrapper">
+          <table class="data-table" id="interactiveDataTable">
+            <thead id="tableHeader"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div class="table-footer-pagination" id="tablePagination">
+          <span class="pagination-info" id="paginationInfo">Hiển thị dữ liệu</span>
+          <div class="pagination-buttons" id="paginationControls"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BƯỚC 3: BÀI TOÁN & THÔNG TIN BỔ SUNG ================= -->
+    <section class="workflow-section" id="step3-section">
+      <div class="section-hero">
+        <div class="hero-badge badge-info"><i class="fa-solid fa-building"></i> Bước 3 / 6: Thông Tin Bổ Sung & Bài Toán Doanh Nghiệp</div>
+        <h2>Xác định bối cảnh ngành & Vấn đề trọng tâm</h2>
+        <p>Cung cấp loại hình doanh nghiệp, lựa chọn bài toán cần giải quyết và bổ sung ghi chú để AI cá nhân hóa mô hình phân tích.</p>
+      </div>
+
+      <div class="business-context-grid">
+        <!-- Industry Selection -->
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-city text-primary"></i> 1. Loại Hình Doanh Nghiệp (Business Industry)</h3>
+          </div>
+          <div class="options-pill-grid mt-3" id="industryPillsContainer">
+            <div class="option-card active" data-industry="retail">
+              <i class="fa-solid fa-store"></i>
+              <strong>Bán Lẻ & Thương Mại Điện Tử</strong>
+              <small>Quản lý chuỗi cửa hàng, Shopee, TikTok Shop</small>
+            </div>
+            <div class="option-card" data-industry="saas">
+              <i class="fa-solid fa-network-wired"></i>
+              <strong>Dịch Vụ B2B & SaaS</strong>
+              <small>Hợp đồng định kỳ ARR, quản lý tài khoản lớn</small>
+            </div>
+            <div class="option-card" data-industry="marketing">
+              <i class="fa-solid fa-bullhorn"></i>
+              <strong>Marketing & Quảng Cáo Số</strong>
+              <small>Tối ưu chi phí CPA, ngân sách đa kênh, ROAS</small>
+            </div>
+            <div class="option-card" data-industry="manufacturing">
+              <i class="fa-solid fa-industry"></i>
+              <strong>Sản Xuất, Phân Phối & Kho Vận</strong>
+              <small>Tồn kho, luân chuyển hàng hóa, năng suất</small>
+            </div>
+            <div class="option-card" data-industry="fnb">
+              <i class="fa-solid fa-utensils"></i>
+              <strong>Nhà Hàng, Ẩm Thực & F&B</strong>
+              <small>Suất ăn, chi phí nguyên vật liệu, cơ sở</small>
+            </div>
+            <div class="option-card" data-industry="custom">
+              <i class="fa-solid fa-sliders"></i>
+              <strong>Tùy Biến Đa Ngành</strong>
+              <small>Tự động thích ứng dựa trên cấu trúc các cột</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Problem Statement -->
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-crosshairs text-danger"></i> 2. Loại Hình Vấn Đề Cần Phân Tích (Problem Statement)</h3>
+          </div>
+          <div class="problem-selection-list mt-3">
+            <label class="problem-radio-item active">
+              <input type="radio" name="businessProblem" value="growth" checked>
+              <div class="radio-content">
+                <strong>Tối ưu doanh thu & Tìm động lực tăng trưởng mới</strong>
+                <p>Xác định phân nhóm dẫn đầu, cơ cấu đóng góp và mô phỏng kịch bản tăng trưởng +20% - +30%.</p>
+              </div>
+            </label>
+            <label class="problem-radio-item">
+              <input type="radio" name="businessProblem" value="cost_bottleneck">
+              <div class="radio-content">
+                <strong>Rà soát điểm nghẽn & Cắt giảm chi phí kém hiệu quả</strong>
+                <p>Truy tìm các chi nhánh, kênh bán hoặc sản phẩm có tỷ lệ chi phí cao, doanh số chạm đáy.</p>
+              </div>
+            </label>
+            <label class="problem-radio-item">
+              <input type="radio" name="businessProblem" value="concentration_risk">
+              <div class="radio-content">
+                <strong>Đánh giá rủi ro tập trung & Phụ thuộc khách hàng lớn</strong>
+                <p>Kiểm định mức độ phụ thuộc vào Top 1 - Top 3 phân nhóm và nguy cơ biến động toàn cục.</p>
+              </div>
+            </label>
+            <label class="problem-radio-item">
+              <input type="radio" name="businessProblem" value="variance_audit">
+              <div class="radio-content">
+                <strong>Đối chiếu biến động chuỗi thời gian & Kiểm toán số liệu</strong>
+                <p>Rà soát tăng giảm qua các tháng/quý và kiểm chứng tính toàn vẹn 100% giữa Dashboard và bảng chi tiết.</p>
+              </div>
+            </label>
+          </div>
+
+          <!-- Additional Notes -->
+          <div class="mt-4">
+            <label for="extraBusinessNotes" class="profile-label">Thông tin bổ sung / Kỳ vọng quản trị của bạn:</label>
+            <textarea id="extraBusinessNotes" class="form-input mt-2" rows="2" placeholder="Ví dụ: Ưu tiên bóc tách kênh bán hàng Online, đặt mục tiêu tăng trưởng tối thiểu 25%..."></textarea>
+          </div>
+
+          <div class="mt-4 text-right">
+            <button class="btn btn-primary btn-lg" id="btnConfirmBusinessContext">
+              Xác Nhận Vấn Đề & Tiếp Tục <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BƯỚC 4: NHẬP YÊU CẦU THÊM & GỢI Ý TỪ AI (CHƯA PHÂN TÍCH NGAY) ================= -->
+    <section class="workflow-section" id="step4-section">
+      <div class="section-hero">
+        <div class="hero-badge badge-primary"><i class="fa-solid fa-comments"></i> Bước 4 / 6: Nhập Yêu Cầu Bổ Sung & Thảo Luận Với AI</div>
+        <h2>Định hình câu hỏi nghiệp vụ trước khi chạy mô hình</h2>
+        <p>Tại bước này, hệ thống CHƯA vội phân tích. AI gợi ý các câu hỏi chuyên sâu từ dữ liệu đã nạp; bạn có thể chọn hoặc chat thêm yêu cầu cụ thể.</p>
+      </div>
+
+      <div class="scope-grid">
+        <!-- File Profile & Suggested Questions -->
+        <div class="card scope-profile-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-id-card-clip text-primary"></i> Hồ Sơ Dữ Liệu Đã Làm Sạch</h3>
+            <span class="badge-tag" id="detectedContextTag">Đang nhận diện...</span>
+          </div>
+
+          <div class="profile-details-list">
+            <div class="profile-row">
+              <span class="profile-label"><i class="fa-solid fa-calendar-days"></i> Chuỗi Thời Gian:</span>
+              <span class="profile-value" id="profilePeriodsText">--</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label"><i class="fa-solid fa-layer-group"></i> Chiều Phân Nhóm:</span>
+              <div class="tags-cloud" id="profileDimensionsCloud"></div>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label"><i class="fa-solid fa-calculator"></i> Cột Chỉ Số Đo:</span>
+              <div class="tags-cloud" id="profileMetricsCloud"></div>
+            </div>
+          </div>
+
+          <!-- Suggested Questions -->
+          <div class="suggested-questions-box mt-4">
+            <div class="suggested-header">
+              <h4><i class="fa-solid fa-wand-magic-sparkles text-amber"></i> Câu hỏi AI gợi ý thích ứng</h4>
+              <button class="btn btn-sm btn-outline" id="btnRefreshQuestions">
+                <i class="fa-solid fa-arrows-rotate"></i> ✦ Gợi ý góc nhìn mới
+              </button>
+            </div>
+            <div class="angle-indicator" id="angleIndicatorBadge">Góc nhìn 1: Động lực dẫn đầu & Tăng trưởng</div>
+            <div class="questions-list" id="suggestedQuestionsList"></div>
+            <small class="text-muted mt-2 block">Nhấp vào một câu hỏi để đưa vào danh sách giải đáp trọng tâm.</small>
+          </div>
+        </div>
+
+        <!-- Live Requirement Chat & Table Q&A -->
+        <div class="card scope-chat-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-robot text-accent"></i> Hỏi Đáp Mọi Số Liệu Trong Bảng (AI Data Copilot)</h3>
+            <span class="chat-status"><i class="fa-solid fa-circle text-success pulse"></i> Sẵn sàng đọc bảng</span>
+          </div>
+
+          <div class="chat-messages-container" id="chatMessages">
+            <div class="chat-bubble ai-bubble">
+              <div class="bubble-avatar"><i class="fa-solid fa-brain"></i></div>
+              <div class="bubble-body">
+                <strong>Quang Minh AI Copilot:</strong>
+                <p>Tôi đã nạp toàn bộ cấu trúc và số liệu bảng tính của bạn vào bộ nhớ. Bạn có thể <strong>hỏi bất kỳ điều gì về bảng số liệu này</strong> (ví dụ: <em>"Tổng doanh thu toàn bảng là bao nhiêu?"</em>, <em>"Tháng 2 chi nhánh Cầu Giấy đạt bao nhiêu?"</em>, <em>"Đơn vị nào cao nhất?"</em>, <em>"So sánh kênh Shopee và TikTok"</em>) — tôi sẽ tra cứu từng dòng và giải đáp chính xác 100% kèm dẫn chứng!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-wrapper">
+            <div class="quick-prompt-chips">
+              <button class="chip-btn" data-prompt="Tổng cộng các chỉ số trong toàn bộ bảng tính là bao nhiêu?">Tổng cộng toàn bảng</button>
+              <button class="chip-btn" data-prompt="Đơn vị hoặc phân nhóm nào đang đạt giá trị cao nhất?">Đơn vị cao nhất (Top 1)</button>
+              <button class="chip-btn" data-prompt="Phân nhóm nào thấp nhất cần lưu ý tối ưu?">Nhóm thấp nhất / Cảnh báo</button>
+              <button class="chip-btn" data-prompt="So sánh sự biến động và tăng giảm giữa các kỳ thời gian">So sánh biến động các kỳ</button>
+            </div>
+            <div class="chat-input-row">
+              <input type="text" id="chatInput" class="form-input" placeholder="Hỏi bất kỳ điều gì về các dòng, cột, con số trong bảng tính của bạn...">
+              <button class="btn btn-primary" id="btnSendChat">
+                <i class="fa-solid fa-paper-plane"></i> Gửi câu hỏi
+              </button>
+            </div>
+          </div>
+
+          <div class="scope-cta-footer">
+            <button class="btn btn-success btn-lg w-100" id="btnExecuteAnalysis">
+              <i class="fa-solid fa-chart-line"></i> Xác Nhận Yêu Cầu & Chuyển Sang Dashboard KPI <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BƯỚC 5: TẠO DASHBOARD KPI & XÁC NHẬN ================= -->
+    <section class="workflow-section" id="step5-section">
+      <div class="section-hero">
+        <div class="hero-badge badge-accent"><i class="fa-solid fa-chart-pie"></i> Bước 5 / 6: Dashboard KPI, Biểu Đồ & Xác Nhận Báo Cáo</div>
+        <h2>Bảng điều khiển kinh doanh & Xác nhận mô hình</h2>
+        <p>100% chỉ số được tính toán thực tế từ file, đối chiếu số học hoàn hảo. Bạn có thể tinh chỉnh trước khi phê duyệt tạo trọn bộ báo cáo chi tiết.</p>
+      </div>
+
+      <!-- 4 Core Business KPIs -->
+      <div class="kpi-cards-grid" id="kpiCardsContainerStep5">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-sack-dollar text-primary"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitleStep5_1">Chỉ Số Chính</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValueStep5_1">--</span>
+              <span class="kpi-badge badge-success" id="kpiBadgeStep5_1">+0%</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitleStep5_1">Tổng lũy kế</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-chart-line-up text-emerald"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitleStep5_2">Chỉ Số Hiệu Quả</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValueStep5_2">--</span>
+              <span class="kpi-badge badge-info" id="kpiBadgeStep5_2">Tỷ suất</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitleStep5_2">Tỷ lệ tương đối</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-crown text-amber"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitleStep5_3">Nhóm Dẫn Đầu (Top 1)</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValueStep5_3">--</span>
+              <span class="kpi-badge badge-warning" id="kpiBadgeStep5_3">Top 1</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitleStep5_3">Đóng góp tỷ trọng cao nhất</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-triangle-exclamation text-danger"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitleStep5_4">Rủi Ro & Điểm Chú Ý</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValueStep5_4">--</span>
+              <span class="kpi-badge badge-danger" id="kpiBadgeStep5_4">Cảnh báo</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitleStep5_4">Nhóm đáy hoặc rủi ro phụ thuộc</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Cards -->
+      <div class="charts-dashboard-grid mt-4">
+        <!-- Visual Card 1: Trendline -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-chart-line text-primary"></i>
+              <span id="trendChartTitleStep5">Xu Hướng Biến Động Chuỗi Thời Gian</span>
+            </div>
+            <span class="badge-tag">Time Series</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="trendChartCanvasStep5"></canvas>
+          </div>
+        </div>
+
+        <!-- Visual Card 2: Donut Breakdown -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-chart-pie text-emerald"></i>
+              <span id="donutChartTitleStep5">Cơ Cấu Tỷ Trọng Phân Bổ</span>
+            </div>
+            <span class="badge-tag">Tỷ lệ %</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="donutChartCanvasStep5"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation Bar -->
+      <div class="confirmation-box-card mt-4">
+        <div class="confirmation-left">
+          <h4><i class="fa-solid fa-clipboard-check text-emerald"></i> Xác Nhận Phê Duyệt & Chuyển Sang Báo Cáo Toàn Diện</h4>
+          <p class="text-muted text-sm">Nếu cần điều chỉnh thêm, hãy nhập chỉ thị bên dưới hoặc nhấn Xác nhận để xem Trọn bộ báo cáo đầy đủ biểu đồ chi tiết.</p>
+          <div class="refinement-input-wrap mt-2">
+            <input type="text" id="refinementInputStep5" class="form-input" placeholder="Ví dụ: 'Loại trừ kênh TikTok Shop', 'Tập trung tháng 04/2026'...">
+            <button class="btn btn-secondary" id="btnApplyRefinementStep5">
+              <i class="fa-solid fa-rotate"></i> Tính lại tức thì
+            </button>
+          </div>
+        </div>
+        <div class="confirmation-right">
+          <button class="btn btn-success btn-lg" id="btnConfirmAndGoToStep6">
+            <i class="fa-solid fa-circle-check"></i> Xác Nhận Báo Cáo & Xem Toàn Bộ Biểu Đồ Chi Tiết (Bước 6) <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BƯỚC 6: XUẤT BỘ BÁO CÁO & BIỂU ĐỒ TOÀN DIỆN CHI TIẾT ================= -->
+    <section class="workflow-section" id="step6-section">
+      <div class="section-hero">
+        <div class="hero-badge badge-success"><i class="fa-solid fa-file-signature"></i> Bước 6 / 6: Bộ Báo Cáo Điều Hành & Hệ Thống Biểu Đồ Toàn Diện</div>
+        <h2>Báo cáo chiến lược doanh nghiệp chi tiết & Hệ thống biểu đồ đa chiều</h2>
+        <p>Tập hợp đầy đủ 6 chỉ số KPI, 6 biểu đồ trực quan, bảng scorecard chi tiết, giải đáp Q&A có dẫn chứng dữ liệu và lộ trình hành động 30-60-90 ngày.</p>
+      </div>
+
+      <!-- Quick Action Toolbar -->
+      <div class="confirmation-box-card mb-4">
+        <div class="confirmation-left">
+          <h4><i class="fa-solid fa-sliders text-primary"></i> Tinh Chỉnh Nhanh Mô Hình</h4>
+          <p class="text-muted text-sm">Gõ yêu cầu điều chỉnh để hệ thống tính toán lại toàn bộ biểu đồ và báo cáo ngay lập tức:</p>
+          <div class="refinement-input-wrap mt-2">
+            <input type="text" id="refinementInput" class="form-input" placeholder="Ví dụ: 'Loại trừ Shopee', 'Lọc tháng 04/2026', 'Mục tiêu +30%'...">
+            <button class="btn btn-secondary" id="btnApplyRefinement">
+              <i class="fa-solid fa-rotate"></i> Tính lại tức thì
+            </button>
+          </div>
+        </div>
+        <div class="confirmation-right">
+          <button class="btn btn-outline" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> In / Lưu PDF
+          </button>
+          <button class="btn btn-primary btn-lg" id="btnDownloadHtmlReport">
+            <i class="fa-solid fa-download"></i> Tải Trọn Bộ Báo Cáo (.HTML)
+          </button>
+        </div>
+      </div>
+
+      <!-- 6 Core Business KPIs Grid -->
+      <div class="kpi-cards-grid" id="kpiCardsContainer">
+        <!-- KPI 1 -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-sack-dollar text-primary"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitle1">Chỉ Số Chính</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValue1">--</span>
+              <span class="kpi-badge badge-success" id="kpiBadge1">+0%</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitle1">Tổng lũy kế</span>
+          </div>
+        </div>
+        <!-- KPI 2 -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-chart-line-up text-emerald"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitle2">Chỉ Số Hiệu Quả</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValue2">--</span>
+              <span class="kpi-badge badge-info" id="kpiBadge2">Tỷ suất</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitle2">Tỷ lệ tương đối</span>
+          </div>
+        </div>
+        <!-- KPI 3 -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-crown text-amber"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitle3">Top 1 Dẫn Đầu</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValue3">--</span>
+              <span class="kpi-badge badge-warning" id="kpiBadge3">Top 1</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitle3">Đóng góp cao nhất</span>
+          </div>
+        </div>
+        <!-- KPI 4 -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-triangle-exclamation text-danger"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitle4">Nhóm Cần Tối Ưu</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValue4">--</span>
+              <span class="kpi-badge badge-danger" id="kpiBadge4">Cảnh báo</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitle4">Nhóm có giá trị thấp nhất</span>
+          </div>
+        </div>
+        <!-- KPI 5 -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-bullseye text-accent"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitle5">Mục Tiêu Tăng Trưởng</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValue5">--</span>
+              <span class="kpi-badge badge-primary" id="kpiBadge5">+25%</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitle5">Kịch bản bứt phá kỳ tới</span>
+          </div>
+        </div>
+        <!-- KPI 6 -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fa-solid fa-shield-check text-emerald"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-title" id="kpiTitle6">Kiểm Toán Dữ Liệu</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiValue6">--</span>
+              <span class="kpi-badge badge-secondary" id="kpiBadge6">--</span>
+            </div>
+            <span class="kpi-subtitle" id="kpiSubtitle6">Đối chiếu dòng chi tiết</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 6 BIỂU ĐỒ TRỰC QUAN CHUYÊN SÂU ================= -->
+      <div class="section-divider-title mt-4">
+        <i class="fa-solid fa-chart-simple text-primary"></i> HỆ THỐNG BIỂU ĐỒ PHÂN TÍCH ĐA CHIỀU (6 VISUAL CHARTS SUITE)
+      </div>
+
+      <div class="charts-dashboard-grid mt-3">
+        <!-- Chart 1: Dual-Axis Trendline & Area -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-chart-line text-primary"></i>
+              <span id="trendChartTitle">1. Xu Hướng Biến Động Chuỗi Thời Gian (Trend & Area)</span>
+            </div>
+            <span class="badge-tag">Time Series</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="trendChartCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Donut Market Share -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-chart-pie text-emerald"></i>
+              <span id="donutChartTitle">2. Cơ Cấu Tỷ Trọng Phân Bổ Danh Mục (Donut Share)</span>
+            </div>
+            <span class="badge-tag">Tỷ lệ %</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="donutChartCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Horizontal Ranking Bar -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-chart-bar text-amber"></i>
+              <span id="barChartTitle">3. Bảng Xếp Hạng Đóng Góp Giá Trị Từng Đơn Vị (Ranking)</span>
+            </div>
+            <span class="badge-tag">Xếp hạng</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="barChartCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Grouped Comparison Bar (Revenue vs Cost) -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-arrows-split-up-and-left text-accent"></i>
+              <span>4. Đối Chiếu Hai Chiều (Chỉ Số Chính vs Chỉ Số Phụ)</span>
+            </div>
+            <span class="badge-tag">Đối chiếu kép</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="comparisonChartCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 5: Radar / Polar Multi-Dimensional Assessment -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-compass-drafting text-primary"></i>
+              <span>5. Đánh Giá Năng Lực Toàn Diện Đa Chiều (Radar / Matrix)</span>
+            </div>
+            <span class="badge-tag">Đa tiêu chí</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="radarChartCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 6: Variance & Risk Breakdown -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <i class="fa-solid fa-scale-balanced text-danger"></i>
+              <span>6. Phân Tích Độ Lệch Biến Động & Rủi Ro Danh Mục</span>
+            </div>
+            <span class="badge-tag">Variance & Audit</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="varianceChartCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= BẢNG PHÂN TÍCH HIỆU SUẤT CHI TIẾT TỪNG PHÂN KHÚC ================= -->
+      <div class="report-box-card mt-4">
+        <div class="report-box-header">
+          <h3><i class="fa-solid fa-table-list text-emerald"></i> Bảng Phân Tích Hiệu Suất Từng Phân Nhóm Chi Tiết (Performance Scorecard)</h3>
+          <span class="badge-tag">Xếp hạng & Đánh giá sao</span>
+        </div>
+        <div class="table-scroll-wrapper">
+          <table class="data-table" id="scorecardTable">
+            <thead>
+              <tr>
+                <th>Hạng</th>
+                <th>Tên Phân Nhóm</th>
+                <th>Chỉ Số Chính</th>
+                <th>Chỉ Số Phụ</th>
+                <th>Tỷ Trọng %</th>
+                <th>Hiệu Suất Tương Đối</th>
+                <th>Đánh Giá Xếp Hạng</th>
+              </tr>
+            </thead>
+            <tbody id="scorecardTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= TARGETED EVIDENCE-BASED Q&A ================= -->
+      <div class="report-box-card mt-4">
+        <div class="report-box-header">
+          <h3><i class="fa-solid fa-circle-question text-primary"></i> Khối Giải Đáp Trọng Tâm Nghiệp Vụ (Targeted Evidence-Based Q&A)</h3>
+          <span class="badge-tag">1 Hàng Ngang / Câu Hỏi</span>
+        </div>
+        <div class="targeted-qa-container" id="targetedQAContainer"></div>
+      </div>
+
+      <!-- ================= BÁO CÁO 2 CỘT CÂN ĐỐI ================= -->
+      <div class="executive-report-grid mt-4">
+        <div class="report-box-card">
+          <div class="report-box-header">
+            <h3><i class="fa-solid fa-file-lines text-emerald"></i> Báo Cáo Phân Tích Kinh Doanh Toàn Cảnh</h3>
+            <span class="badge-tag">Chi tiết số liệu</span>
+          </div>
+          <div class="report-content-body" id="detailedReportContent"></div>
+        </div>
+
+        <div class="report-box-card">
+          <div class="report-box-header">
+            <h3><i class="fa-solid fa-briefcase text-amber"></i> Tóm Tắt Điều Hành (Executive AI Brief)</h3>
+            <span class="badge-tag">Dành Cho Ban Giám Đốc</span>
+          </div>
+          <div class="report-content-body" id="executiveBriefContent"></div>
+        </div>
+      </div>
+
+      <!-- ================= KẾ HOẠCH HÀNH ĐỘNG CHIẾN LƯỢC 30-60-90 NGÀY ================= -->
+      <div class="report-box-card mt-4">
+        <div class="report-box-header">
+          <h3><i class="fa-solid fa-road text-sky"></i> Lộ Trình Hành Động Chiến Lược 30 — 60 — 90 Ngày</h3>
+          <span class="badge-tag">Actionable Roadmap</span>
+        </div>
+        <div class="roadmap-grid" id="roadmapContainer"></div>
+      </div>
+
+      <!-- Export Banner -->
+      <div class="export-banner mt-4">
+        <div class="banner-left">
+          <h4><i class="fa-solid fa-box-archive text-primary"></i> Xuất Trọn Bộ Báo Cáo Standalone HTML 1-Click</h4>
+          <p class="text-muted">Tệp xuất hoàn chỉnh tích hợp toàn bộ 6 biểu đồ, 6 thẻ KPI, bảng scorecard và nhận định điều hành. Mở xem offline mượt mà trên mọi máy tính và điện thoại.</p>
+        </div>
+        <div class="banner-right">
+          <button class="btn btn-outline" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> In / Lưu PDF
+          </button>
+          <button class="btn btn-primary btn-lg" id="btnDownloadHtmlReportBottom">
+            <i class="fa-solid fa-download"></i> Tải Tệp Báo Cáo (.HTML)
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dual-Brain Modal -->
+  <div class="modal-overlay" id="apiModalOverlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-brain text-accent"></i> Cấu Hình Bộ Não Kép (Dual-Brain)</h3>
+        <button class="btn-close" id="btnCloseApiModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted">
+          Hệ thống mặc định vận hành trên <strong>Deterministic Local Engine</strong> của Quang Minh AI — chuẩn xác 100% toán học, an toàn dữ liệu và chạy offline.
+        </p>
+        <p class="text-muted mt-2">
+          Nếu muốn AI viết nhận định bằng ngôn ngữ tự nhiên từ <strong>Google Gemini</strong>, hãy dán API Key của bạn vào bên dưới:
+        </p>
+        <div class="form-group mt-3">
+          <label for="geminiApiKey">Google Gemini API Key (Tùy chọn):</label>
+          <input type="password" id="geminiApiKey" class="form-input" placeholder="AIzaSy...">
+        </div>
+        <div class="form-group mt-2">
+          <label for="geminiModelSelect">Mô hình AI:</label>
+          <select id="geminiModelSelect" class="form-input">
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Tốc độ cao & Chuẩn xác)</option>
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro (Lý luận chiến lược chuyên sâu)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnSaveApiKey">Lưu Cấu Hình</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Help & User Guide Button (Nút Góc Phải Màn Hình Với Logo MU Động) -->
+  <button class="btn-guide-floating" id="btnOpenGuideModal" title="Hướng dẫn sử dụng hệ thống Quang Minh AI Data Analyst">
+    <div class="guide-btn-inner">
+      <span class="guide-icon-arch mu-badge-container" id="muBadgeFloating">
+        <img src="mu_logo.jpg" alt="Manchester United Logo" class="mu-logo-img" id="muLogoFloating">
+      </span>
+      <span class="guide-label-wrap">
+        <span class="guide-label-title">Hướng Dẫn Sử Dụng</span>
+        <span class="guide-label-sub">Quy trình 6 bước</span>
+      </span>
+      <span class="guide-leaf-icon"><i class="fa-solid fa-leaf"></i></span>
+    </div>
+  </button>
+
+  <!-- User Guide Modal (Cẩm Nang Hướng Dẫn Sử Dụng) -->
+  <div class="modal-overlay" id="guideModalOverlay">
+    <div class="modal-box guide-modal-box">
+      <div class="modal-header guide-modal-header">
+        <div class="guide-header-title-wrap">
+          <div class="guide-logo-badge mu-modal-badge" id="muModalBadge">
+            <img src="mu_logo.jpg" alt="Manchester United Logo" class="mu-logo-modal-img" id="muLogoModal">
+          </div>
+          <div>
+            <h3 class="guide-modal-title">Cẩm Nang Hướng Dẫn Sử Dụng</h3>
+            <p class="guide-modal-subtitle">Hệ thống Phân Tích Dữ Liệu Đa Hình Quang Minh AI Data Analyst</p>
+          </div>
+        </div>
+        <button class="btn-close" id="btnCloseGuideModal" title="Đóng hướng dẫn">&times;</button>
+      </div>
+
+      <div class="modal-body guide-modal-body">
+        <!-- 6 Steps Roadmap -->
+        <div class="guide-section-badge">
+          <i class="fa-solid fa-route"></i> Quy trình 6 bước khép kín: Biến số liệu thô thành quyết định điều hành
+        </div>
+        
+        <div class="guide-steps-grid">
+          <div class="guide-step-card">
+            <div class="guide-step-header">
+              <span class="guide-step-num">1</span>
+              <h4>Tiếp Nhận Đa Nguồn Dữ Liệu</h4>
+            </div>
+            <p>
+              Hỗ trợ kéo thả tệp Excel (<code>.xlsx</code>, <code>.xls</code>), CSV tiếng Việt (tự nhận diện mã UTF-8 & Windows-1258). Có thể dán bảng văn bản thô (Text/TSV) hoặc dán link Google Sheets / Google Docs công khai. Bạn cũng có thể bấm chọn nhanh 3 kịch bản dữ liệu mẫu (Bán Lẻ, Ads, SaaS) để trải nghiệm tức thì.
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-header">
+              <span class="guide-step-num">2</span>
+              <h4>Kiểm Định & Sửa Lỗi Trực Tiếp (Inline Editor)</h4>
+            </div>
+            <p>
+              Cổng Gatekeeper quét toàn bộ tệp, tính điểm chất lượng (Data Health Score) và định vị chính xác ô lỗi (ngày tháng, số âm, để trống). Bạn có thể <strong>nhấp đúp trực tiếp vào ô lỗi trên bảng để sửa số liệu</strong>, bấm <em>"Tự Động Làm Sạch"</em> hoặc <em>"Nạp Bộ Sạch Mẫu 100%"</em>, sau đó bấm <strong>"Duyệt Bước Này & Tiếp Tục"</strong>.
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-header">
+              <span class="guide-step-num">3</span>
+              <h4>Xác Lập Bài Toán Doanh Nghiệp</h4>
+            </div>
+            <p>
+              Chọn ngữ cảnh ngành nghề thực tế (Chuỗi Bán Lẻ, SaaS B2B, Marketing Ads, Leads CRM, hoặc Bảng tự do). Nhập vấn đề quản trị cốt lõi cùng các ghi chú chỉ đạo để AI tập trung phân tích đúng trọng tâm nghiệp vụ của công ty.
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-header">
+              <span class="guide-step-num">4</span>
+              <h4>Yêu Cầu & Gợi Ý AI (Human-in-the-Loop)</h4>
+            </div>
+            <p>
+              Bấm nút <strong>"✦ Gợi ý câu hỏi mới từ file"</strong> để AI tự động sinh câu hỏi sắc bén theo 3 góc nhìn (đầu tàu doanh thu, rủi ro sụt giảm, đối chiếu chéo). Tương tác qua khung Chat để ra lệnh bằng tiếng Việt (ví dụ: <em>"Ưu tiên lợi nhuận"</em>, <em>"Mục tiêu tăng trưởng 30%"</em>) trước khi khởi chạy phân tích.
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-header">
+              <span class="guide-step-num">5</span>
+              <h4>Kiểm Duyệt Dashboard & Tinh Chỉnh</h4>
+            </div>
+            <p>
+              Rà soát 4 thẻ KPI nghiệp vụ và biểu đồ xu hướng sơ bộ. Bạn có thể nhập chỉ thị tinh chỉnh (ví dụ: <em>"loại trừ Miền Bắc"</em> hoặc <em>"chỉ xem tháng 9"</em>) để AI tính toán lại ngay, sau đó bấm <strong>"Xác Nhận Báo Cáo & Xem Toàn Bộ Biểu Đồ Chi Tiết"</strong>.
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="guide-step-header">
+              <span class="guide-step-num">6</span>
+              <h4>Bộ Báo Cáo Toàn Diện & Xuất Bản</h4>
+            </div>
+            <p>
+              Khai thác hệ thống phân tích đa tầng: <strong>6 Thẻ KPI chuẩn xác</strong>, <strong>Bộ 6 Biểu đồ trực quan</strong> (Xu hướng kép, Donut, Xếp hạng Bar, Đối chiếu 2 chỉ số, Radar 5 chiều, Rủi ro tập trung), Bảng Scorecard chấm điểm sao, Khối Q&A giải đáp từng dòng có dẫn chứng toán học cụ thể, Báo cáo điều hành 2 cột, và Lộ trình 30-60-90 ngày.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Golden Rules -->
+        <div class="guide-tips-box">
+          <div class="guide-tips-title"><i class="fa-solid fa-lightbulb text-amber"></i> 3 Điểm Nổi Bật Của Hệ Thống Quang Minh AI</div>
+          <ul class="guide-tips-list">
+            <li><strong>100% Trung thực số liệu (Zero Hallucination):</strong> Mọi chỉ số KPI, tỷ lệ phần trăm và biểu đồ đều được tính toán và kiểm chứng toán học trực tiếp từ từng dòng dữ liệu thật, có đối chiếu số dòng khớp rõ ràng.</li>
+            <li><strong>Bảo mật tuyệt đối & Chạy Offline:</strong> Toàn bộ dữ liệu được xử lý trực tiếp trên trình duyệt của bạn (In-Browser Deterministic Engine), tuyệt đối không lưu trữ hay rò rỉ thông tin kinh doanh lên máy chủ ngoài.</li>
+            <li><strong>Xuất Báo Cáo Độc Lập 1-Click:</strong> Bấm <em>"Tải Tệp Báo Cáo (.HTML)"</em> để nhận ngay 1 tệp HTML đóng gói đầy đủ dữ liệu, mở xem offline mượt mà trên mọi trình duyệt điện thoại, máy tính bảng hay laptop để báo cáo lãnh đạo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modal-footer guide-modal-footer">
+        <button class="btn btn-primary btn-lg" id="btnCloseGuideModalBottom">
+          <i class="fa-solid fa-check"></i> Đã Hiểu & Bắt Đầu Trải Nghiệm
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manchester United Custom Cursor Effect (Hiệu Ứng Di Chuột Hình MU) -->
+  <div class="custom-cursor-dot mu-cursor-dot" id="cursorDot"></div>
+  <div class="custom-cursor-mu" id="cursorMu">
+    <div class="cursor-mu-badge" id="cursorMuBadge">
+      <img src="mu_logo.jpg" alt="MU Cursor" class="cursor-mu-img" id="cursorMuImg">
+    </div>
+  </div>
+  <div class="custom-cursor-ring" id="cursorRing" style="display: none;"></div>
+
+  <!-- Scripts -->
+  <script src="sample_data.js"></script>
+  <script src="agent_engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
